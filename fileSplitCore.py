@@ -1,19 +1,21 @@
-from os import getcwd, chdir, path, remove
+from os import getcwd, chdir, remove
+from os.path import getsize, exists
 from traceback import print_exc
+from EssentialsCore import getInput
 
 # It splits a fils, stores the correct order in a log a file.
 # Then joins the file just in order
 def randomizer(filename):
     try:
         #Import Specific Modules.
-        from fileSplitRandomizerCore import zipFileMaker, fileSplitter
+        from fileSplitLockerCore import zipFileMaker, fileSplitter
         from KeyManager import keyEncryptor
         from EssentialsCore import output_files_folder
-        file_size = path.getsize(filename)
+        
+        file_size = getsize(filename)
         foldername, keyData = fileSplitter(filename, file_size)
         zipFileMaker(foldername)
-        print("\nEnter KeyFile name : ",end='')
-        key = input()
+        key = getInput(inpstring="\nEnter KeyFile name : ", datatype=str)
         keyEncryptor(keyData, keyFile=output_files_folder+key)
     except:
         print_exc()
@@ -24,24 +26,26 @@ def randomizer(filename):
 def derandomizer(foldername):
     try:
         #Import Specific Modules.
-        from fileSplitDerandomizerCore import unZipper, fileJoiner
+        from fileSplitUnlockerCore import unZipper, fileJoiner, matchKey
         from KeyManager import keyDecryptor
         from EssentialsCore import output_files_folder
-        print("\nEnter KeyFile name : ",end='')
-        key = input()
-        keyData = keyDecryptor(output_files_folder+key)
-        if keyData.split('\n')[0] == foldername.split('.')[0]: 
-            print("\nKey Matched!")
+
+        # Get Key file.
+        key = getInput(inpstring="\nEnter KeyFile name : ", datatype='file')
+         
+        keyData = keyDecryptor(key).split('\n')  
+        if matchKey(keyData[3], keyData[2], foldername): 
+            print("\n Key Matched!")
             foldername = unZipper(foldername)
-            keyData = keyData.split('\n')
             logF = output_files_folder+foldername+'\\'+keyData[1]
             fileJoiner(foldername,log=logF,ext=keyData[2])
             
             # Delete Key
-            print("\nKey Deleted.")
-            remove(output_files_folder+key)
+            print("\n Key Deleted.")
+            remove(key)
         else:
-            print("\nKey did not Match!")    
-    except:
+            print("\n Key did not Match!")
+    except FileNotFoundError:
+        print("\n Unable to read KEY.")
+    except :
         print_exc()
-     

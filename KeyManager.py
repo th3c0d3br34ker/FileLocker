@@ -33,12 +33,15 @@ def keyEncryptor(data, pwd='', keyFile='key'):
     print("Done.")    
 
 def keyDecryptor(keyFile='key', pwd = ''):
+    try:
+        
+        with open(keyFile, 'r') as key:
+            print("\nReading key... ", end='')
+            encrpyted_data = key.read()
 
-    print("\nReading key... ", end='')
-    with open(keyFile, 'r') as key:
-        encrpyted_data = key.read()
-
-    decrypted_data = AESCipher(pwd).decrypt(encrpyted_data).decode('utf-8')
-    print("Done")
-    
-    return decrypted_data
+        decrypted_data = AESCipher(pwd).decrypt(encrpyted_data).decode('utf-8')
+        print("Done")
+        
+        return decrypted_data
+    except Exception:
+        print("\n Failed!")
