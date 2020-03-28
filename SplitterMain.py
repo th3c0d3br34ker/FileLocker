@@ -27,7 +27,7 @@ def randomize():
     try:
         # Import relevant Modules.
         from os.path import isfile
-        from fileSplitCore import randomizer
+        from fileLockCore import randomizer
 
         print("\nLooking for files in local directory...\n")
         chdir(testfiles_folder_path)
@@ -51,7 +51,7 @@ def randomize():
 def derandomize():
     try:
         # Import relevant Modules.
-        from fileSplitCore import derandomizer
+        from fileLockCore import derandomizer
         
         print("\nLooking for files in local directory...\n")
         #print("Only works with TestFiles Directory")
