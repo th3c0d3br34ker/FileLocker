@@ -1,4 +1,4 @@
-# FileLocker
+FileLocker
 ============
 This python script is a file locker.
 It locks the file with a Key which is again encrypted by a password using AES Encryption.
