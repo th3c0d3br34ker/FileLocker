@@ -2,7 +2,7 @@ from traceback import print_exc
 from os import getcwd
 
 
-default_dir = "D:\\Jainam Desai\\Documents\\Projects\\FileSecurity"
+default_dir = getcwd()
 locked_folder_path = default_dir+"\\Locked\\"
 testfiles_folder_path = default_dir+"\\TestFiles\\"
 output_files_folder = default_dir+"\\Output\\"
