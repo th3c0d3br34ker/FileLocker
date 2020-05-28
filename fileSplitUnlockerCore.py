@@ -14,7 +14,7 @@ def unZipper(filename):
     foldername = filename.split('.')[0] + "_partfiles"
     print("\n {} will be unlocked to {}\n".format(filename, foldername))
 
-    filename = locked_folder_path+"\\"+filename 
+    filename = locked_folder_path+"\\"+filename
 
     try:
         # Create the folder.
@@ -24,20 +24,21 @@ def unZipper(filename):
 
         with ZipFile(filename) as zipF:
             file_list = zipF.namelist()
-            pbar = tqdm(total = len(file_list),bar_format='{l_bar}{bar:80}{postfix[0]}',postfix=['|'])
-            for f in file_list:    
+            pbar = tqdm(total=len(file_list),
+                        bar_format='{l_bar}{bar:80}{postfix[0]}', postfix=['|'])
+            for f in file_list:
                 zipF.extract(f, foldername)
 
                 # Update progressbar.
                 pbar.update(1)
                 pbar.set_description("Unlocking file {}".format(f))
-            
+
             # Close progressbar.
             pbar.close()
-        #Delete the file.
+        # Delete the file.
         chdir(default_dir)
         remove(filename)
-        return basename(foldername)  
+        return basename(foldername)
 
     except Exception:
         print("\nFailed!")
@@ -51,14 +52,16 @@ def fileJoiner(folder, log, ext):
     from os import rmdir, listdir
     try:
         chdir(output_files_folder+folder)
-        filename = output_files_folder+folder.replace("_partfiles",'') +'.' + ext
-        with open (log,'r') as logfile:
-            print("\n Making file {}...".format(basename(filename)))   
-            #Create and start writing
-            with open(filename,'wb') as main_file:
-                pbar = tqdm(total = len(listdir()),bar_format='{l_bar}{bar:80}{postfix[0]}',postfix=['|'])
+        filename = output_files_folder + \
+            folder.replace("_partfiles", '') + '.' + ext
+        with open(log, 'r') as logfile:
+            print("\n Making file {}...".format(basename(filename)))
+            # Create and start writing
+            with open(filename, 'wb') as main_file:
+                pbar = tqdm(
+                    total=len(listdir()), bar_format='{l_bar}{bar:80}{postfix[0]}', postfix=['|'])
                 for f in logfile:
-                    with open(f.strip(),'rb') as fpart:
+                    with open(f.strip(), 'rb') as fpart:
                         file_obj = fpart.read()
                     main_file.write(file_obj)
                     remove(f.strip())
@@ -70,8 +73,8 @@ def fileJoiner(folder, log, ext):
         print("\n Log file deleted.")
 
         chdir(default_dir)
-        
-        #Delete Empty Folder
+
+        # Delete Empty Folder
         rmdir(output_files_folder+folder)
     except Exception:
         print("\nFailed!")
@@ -80,7 +83,7 @@ def fileJoiner(folder, log, ext):
 
 # keyHash: Hash from the key.
 # keyF: File to check with keyHash
-# lockedF: '.locked' file which contains the keyF file. 
+# lockedF: '.locked' file which contains the keyF file.
 def matchKey(keyHash, keyF, lockedF):
     from zipfile import ZipFile
     from hashlib import sha256
@@ -88,7 +91,7 @@ def matchKey(keyHash, keyF, lockedF):
         keyF_data = None
         with ZipFile(lockedF) as zipF:
             keyF_data = zipF.read(keyF)
-        
+
         if sha256(keyF_data).hexdigest() == keyHash:
             return True
         else:

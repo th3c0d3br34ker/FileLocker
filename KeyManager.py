@@ -20,28 +20,30 @@ class AESCipher:
         self.cipher = AES.new(self.key, AES.MODE_CBC, raw[:AES.block_size])
         return unpad(self.cipher.decrypt(raw[AES.block_size:]), AES.block_size)
 
+
 def keyEncryptor(data, pwd='', keyFile='key'):
     # Generate Key.
     print("\nGenerating Key... ", end='')
     encrpyted_data = AESCipher(pwd).encrypt(data).decode('utf-8')
     print("Done.")
-    
+
     print("Writing Key File... ", end='')
     # Write the Key File.
     with open(keyFile, 'w') as key:
         key.write(encrpyted_data)
-    print("Done.")    
+    print("Done.")
 
-def keyDecryptor(keyFile='key', pwd = ''):
+
+def keyDecryptor(keyFile='key', pwd=''):
     try:
-        
+
         with open(keyFile, 'r') as key:
             print("\nReading key... ", end='')
             encrpyted_data = key.read()
 
         decrypted_data = AESCipher(pwd).decrypt(encrpyted_data).decode('utf-8')
         print("Done")
-        
+
         return decrypted_data
     except Exception:
         print("\n Failed!")

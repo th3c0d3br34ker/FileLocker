@@ -8,9 +8,10 @@ testfiles_folder_path = default_dir+"\\TestFiles\\"
 output_files_folder = default_dir+"\\Output\\"
 
 
-def digitBlancer(n, size = 6):
+def digitBlancer(n, size=6):
     s = '0' * (size-len(str(n)))
     return s+str(n)
+
 
 def randomGenerate(n):
     try:
@@ -18,10 +19,12 @@ def randomGenerate(n):
 
         size = len(str(n))+1
         count_list = sample(range(0, n), n)
-        random_count_list = list(map(lambda x : digitBlancer(x, size), count_list))
+        random_count_list = list(
+            map(lambda x: digitBlancer(x, size), count_list))
         return random_count_list
     except Exception:
         print_exc()
+
 
 def randomSizeGenerate(size):
     try:
@@ -29,13 +32,14 @@ def randomSizeGenerate(size):
 
         size_list = []
         exp = 0.5
-        while(size>0):
+        while(size > 0):
             tmp = randint(1, int(size**exp))
             size_list.append(tmp)
             size = size - tmp
         return size_list
     except Exception:
         print_exc()
+
 
 def cleanit():
     try:
@@ -49,7 +53,7 @@ def cleanit():
             if isdir(f) and '_partfiles' in f:
                 print("Cleaing {}".format(f))
                 remove(locked_folder_path + f)
-        
+
         print("\nCleaned.")
 
         print("\nCleaning Locked Folder:", locked_folder_path)
@@ -58,7 +62,7 @@ def cleanit():
         for f in files:
             print("Cleaing {}".format(f))
             remove(locked_folder_path + f)
-        
+
         print("\nCleaned.")
 
         print("\nCleaning Output Folder:", output_files_folder)
@@ -67,15 +71,16 @@ def cleanit():
         for f in files:
             print("Cleaing {}".format(f))
             remove(output_files_folder + f)
-        
+
         print("\nCleaned.")
-        
+
     except Exception:
         print_exc()
 
+
 def getInput(inpstring='', datatype=None, options=[]):
     if datatype == int:
-        options=list(map(str, options))
+        options = list(map(str, options))
         print(inpstring, end='')
         inp = input()
         isnum = inp.isdigit()
@@ -85,13 +90,13 @@ def getInput(inpstring='', datatype=None, options=[]):
             if(not isnum):
                 print(" Enter a Number")
             if(not inoptions):
-                print(" Enter a Number in range:","\n " ," ".join(options))
+                print(" Enter a Number in range:", "\n ", " ".join(options))
             print(inpstring, end='')
             inp = input()
             isnum = inp.isdigit()
             inoptions = inp in options
         return int(inp)
-    
+
     if datatype == str:
         print(inpstring, end='')
         inp = input()
@@ -109,17 +114,18 @@ def getInput(inpstring='', datatype=None, options=[]):
             inp = input()
             inpF = output_files_folder+inp
             isFile = isfile(inpF)
-        
-        return inpF       
-        
+
+        return inpF
+
     if datatype == None:
         print("\n Input datatype not specified!")
         return None
+
 
 def getHash(logF):
     # Import relevant modules.
     from hashlib import sha256
     data = "".encode()
-    with open(logF,'rb') as file:
+    with open(logF, 'rb') as file:
         data = file.read()
     return sha256(data).hexdigest()
