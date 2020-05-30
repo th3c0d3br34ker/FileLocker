@@ -1,7 +1,7 @@
 from os import getcwd, chdir, remove
 from os.path import getsize, exists
 from traceback import print_exc
-from EssentialsCore import getInput
+from core.EssentialsCore import getInput
 
 # It splits a fils, stores the correct order in a log a file.
 # Then joins the file just in order
@@ -10,15 +10,15 @@ from EssentialsCore import getInput
 def randomizer(filename):
     try:
         # Import Specific Modules.
-        from fileSplitLockerCore import zipFileMaker, fileSplitter
-        from KeyManager import keyEncryptor
-        from EssentialsCore import output_files_folder
+        from core.fileSplitLockerCore import zipFileMaker, fileSplitter
+        from core.KeyManager import keyEncryptor
+        from core.EssentialsCore import output_files_folder
 
         file_size = getsize(filename)
         foldername, keyData = fileSplitter(filename, file_size)
         zipFileMaker(foldername)
         key = getInput(inpstring="\nEnter KeyFile name : ", datatype=str)
-        keyEncryptor(keyData, keyFile=output_files_folder+key)
+        keyEncryptor(keyData, keyFile=str(output_files_folder)+r"/"+key)
     except:
         print_exc()
 
@@ -29,9 +29,9 @@ def randomizer(filename):
 def derandomizer(foldername):
     try:
         # Import Specific Modules.
-        from fileSplitUnlockerCore import unZipper, fileJoiner, matchKey
-        from KeyManager import keyDecryptor
-        from EssentialsCore import output_files_folder
+        from core.fileSplitUnlockerCore import unZipper, fileJoiner, matchKey
+        from core.KeyManager import keyDecryptor
+        from core.EssentialsCore import output_files_folder
 
         # Get Key file.
         key = getInput(inpstring="\nEnter KeyFile name : ", datatype='file')
@@ -39,7 +39,7 @@ def derandomizer(foldername):
         if matchKey(keyData[3], keyData[2], foldername):
             print("\n Key Matched!")
             foldername = unZipper(foldername)
-            logF = output_files_folder+foldername+'\\'+keyData[1]
+            logF = str(output_files_folder)+foldername+r'/'+keyData[1]
             fileJoiner(foldername, log=logF, ext=keyData[2])
 
             # Delete Key

@@ -1,7 +1,7 @@
 from tqdm import tqdm
 from os import chdir
 from traceback import print_exc
-from EssentialsCore import locked_folder_path, testfiles_folder_path, default_dir
+from core.EssentialsCore import locked_folder_path, testfiles_folder_path, default_dir
 
 
 # It creates a new directory and splits a file there
@@ -10,7 +10,7 @@ from EssentialsCore import locked_folder_path, testfiles_folder_path, default_di
 def fileSplitter(filename, size):
     # Import relevant modules.
     from os import mkdir
-    from EssentialsCore import getHash, randomGenerate, randomSizeGenerate
+    from core.EssentialsCore import getHash, randomGenerate, randomSizeGenerate
     try:
         key = []
         logF = ""
@@ -78,7 +78,7 @@ def zipFileMaker(folder):
         from zipfile import ZipFile, ZIP_STORED
 
         zipFileName = folder[:folder.index(".")] + ".locked"
-        zipFileName = locked_folder_path+zipFileName
+        zipFileName = str(locked_folder_path)+r"/"+zipFileName
         with ZipFile(zipFileName, 'w', ZIP_STORED) as zipF:
             print("Lock file created...\n")
             #print("\nZipFile created...\n")

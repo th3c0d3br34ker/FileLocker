@@ -1,11 +1,12 @@
 from traceback import print_exc
 from os import getcwd
+from pathlib import Path
 
 
-default_dir = getcwd()
-locked_folder_path = default_dir+"\\Locked\\"
-testfiles_folder_path = default_dir+"\\TestFiles\\"
-output_files_folder = default_dir+"\\Output\\"
+default_dir = Path.cwd()
+locked_folder_path =(default_dir / "Locked")
+testfiles_folder_path = (default_dir / "TestFiles")
+output_files_folder = (default_dir / "Output")
 
 
 def digitBlancer(n, size=6):
@@ -106,7 +107,7 @@ def getInput(inpstring='', datatype=None, options=[]):
         from os.path import isfile
         print(inpstring, end='')
         inp = input()
-        inpF = output_files_folder+inp
+        inpF = str(output_files_folder)+r"/"+inp
         isFile = isfile(inpF)
         while(not isFile):
             print(isFile)

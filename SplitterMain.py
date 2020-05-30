@@ -1,11 +1,10 @@
 from os import chdir, listdir
 from traceback import print_exc
-from EssentialsCore import cleanit, getInput
-from EssentialsCore import default_dir, locked_folder_path, testfiles_folder_path, output_files_folder
+from core.EssentialsCore import cleanit, getInput
+from core.EssentialsCore import default_dir, locked_folder_path, testfiles_folder_path, output_files_folder
 
 
 def start():
-    system("cls")
     print("\n **************************************** WELCOME **************************************** \n")
     print(" Press 1 to Hide. \n Press 2 to Recover. \n Press 3 to Exit.")
     option = getInput(inpstring="\n Enter Choice : ",
@@ -28,7 +27,7 @@ def randomize():
     try:
         # Import relevant Modules.
         from os.path import isfile
-        from fileLockCore import randomizer
+        from core.fileLockCore import randomizer
 
         print("\nLooking for files in local directory...\n")
         chdir(testfiles_folder_path)
@@ -53,7 +52,7 @@ def randomize():
 def derandomize():
     try:
         # Import relevant Modules.
-        from fileLockCore import derandomizer
+        from core.fileLockCore import derandomizer
 
         print("\nLooking for files in local directory...\n")
         #print("Only works with TestFiles Directory")

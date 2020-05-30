@@ -1,7 +1,7 @@
 from os import chdir, remove
 from os.path import basename
 from traceback import print_exc
-from EssentialsCore import output_files_folder, locked_folder_path, default_dir
+from core.EssentialsCore import output_files_folder, locked_folder_path, default_dir
 from tqdm import tqdm
 
 
@@ -14,13 +14,13 @@ def unZipper(filename):
     foldername = filename.split('.')[0] + "_partfiles"
     print("\n {} will be unlocked to {}\n".format(filename, foldername))
 
-    filename = locked_folder_path+"\\"+filename
+    filename = str(locked_folder_path)+ r"/"+filename
 
     try:
         # Create the folder.
         chdir(output_files_folder)
         mkdir(foldername)
-        foldername = output_files_folder+foldername
+        foldername = str(output_files_folder)+R"/"+foldername
 
         with ZipFile(filename) as zipF:
             file_list = zipF.namelist()
@@ -51,8 +51,8 @@ def fileJoiner(folder, log, ext):
     # Import relevant modules.
     from os import rmdir, listdir
     try:
-        chdir(output_files_folder+folder)
-        filename = output_files_folder + \
+        chdir(str(output_files_folder)+r"/"+folder)
+        filename = str(output_files_folder) + \
             folder.replace("_partfiles", '') + '.' + ext
         with open(log, 'r') as logfile:
             print("\n Making file {}...".format(basename(filename)))
@@ -75,7 +75,7 @@ def fileJoiner(folder, log, ext):
         chdir(default_dir)
 
         # Delete Empty Folder
-        rmdir(output_files_folder+folder)
+        rmdir(str(output_files_folder)+folder)
     except Exception:
         print("\nFailed!")
         print_exc()

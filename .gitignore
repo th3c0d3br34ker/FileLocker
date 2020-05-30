@@ -1,1 +1,7 @@
 __pycache__
+
+# Test Files
+TestFiles
+
+# API for dropbox
+dropbox-config.json
