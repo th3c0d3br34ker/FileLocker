@@ -1,7 +1,7 @@
 from tqdm import tqdm
 from os import chdir
 from traceback import print_exc
-from core.EssentialsCore import locked_folder_path, testfiles_folder_path, default_dir
+from core.EssentialsCore import locked_folder_path, testfiles_folder_path
 
 
 # It creates a new directory and splits a file there

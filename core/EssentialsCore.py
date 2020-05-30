@@ -44,7 +44,7 @@ def randomSizeGenerate(size):
 
 def cleanit():
     try:
-        from os import listdir, remove, system
+        from os import listdir, remove
         from os.path import isdir
 
         print("\nCleaning Test files Folder:", testfiles_folder_path)

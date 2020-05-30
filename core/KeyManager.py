@@ -1,6 +1,6 @@
 from hashlib import sha256
 from base64 import b64decode, b64encode
-from os import system, urandom
+from os import urandom
 
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad, unpad

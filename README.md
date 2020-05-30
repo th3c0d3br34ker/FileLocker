@@ -8,15 +8,15 @@ If the key is lost then it becomes immpossible to recover the file.
 
 ## Dependences
 
-1. tqdm
-2. pycrypto
+1.  tqdm
+2.  pycryptodome
 
 ## Known Problems
 
-1. Exceptional Handling
-2. Setting the path to the files (lock, unlock, KEY), i.e., getting it from the user.
+1.  Exceptional Handling
+2.  Setting the path to the files (lock, unlock, KEY), i.e., getting it from the user.
 
-## To do:
+## TODO
 
-1. Add password feature.
-2. Make log more comprehensive.
+1.  Add password feature.
+2.  Make log more comprehensive.
