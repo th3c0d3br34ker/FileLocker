@@ -1,4 +1,5 @@
 from os import chdir, listdir
+from pathlib import Path
 from traceback import print_exc
 from core.EssentialsCore import cleanit, getInput
 from core.EssentialsCore import default_dir, locked_folder_path, testfiles_folder_path, output_files_folder
@@ -8,7 +9,7 @@ def start():
     print("\n **************************************** WELCOME **************************************** \n")
     print(" Press 1 to Hide. \n Press 2 to Recover. \n Press 3 to Exit.")
     option = getInput(inpstring="\n Enter Choice : ",
-                      datatype=int, options=[x for x in range(1, 5)])
+                      datatype=int, options=[x for x in range(1, 4)])
     if(option == 1):
         randomize()
         print("\n Thank You!")
@@ -26,17 +27,16 @@ def start():
 def randomize():
     try:
         # Import relevant Modules.
-        from os.path import isfile
         from core.fileLockCore import randomizer
 
         print("\nLooking for files in local directory...\n")
         chdir(testfiles_folder_path)
         print("Currently in : {}\n".format(testfiles_folder_path))
-        filelist = [x for x in listdir(testfiles_folder_path) if isfile(x)]
+        filelist = [x for x in testfiles_folder_path.iterdir() if x.is_file()]
         n = len(filelist)
         print("List of Files :")
         for i in range(n):
-            print("{0}. {1} ".format(i+1, filelist[i]))
+            print("{0}. {1} ".format(i+1, str(filelist[i])))
 
         # Getting the file from the user.
         filename = filelist[getInput(inpstring="\nEnter file number : ", datatype=int, options=[
@@ -77,13 +77,12 @@ def derandomize():
 
 
 def displayInfo():
-    from os.path import exists
     print("Files Directory : {} ...{}".format(
-        testfiles_folder_path, exists(testfiles_folder_path)))
+        testfiles_folder_path, testfiles_folder_path.exists()))
     print("Output Directory : {} ... {}".format(
-        output_files_folder, exists(testfiles_folder_path)))
+        output_files_folder, testfiles_folder_path.exists()))
     print("Default Directory : {} ... {}".format(
-        default_dir, exists(testfiles_folder_path)))
+        default_dir, testfiles_folder_path.exists()))
 
 
 if __name__ == '__main__':

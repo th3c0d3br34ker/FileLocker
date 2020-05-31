@@ -29,7 +29,7 @@ def keyEncryptor(data, pwd='', keyFile='key'):
 
     print("Writing Key File... ", end='')
     # Write the Key File.
-    with open(keyFile, 'w') as key:
+    with open(str(keyFile), 'w') as key:
         key.write(encrpyted_data)
     print("Done.")
 

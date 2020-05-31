@@ -14,11 +14,11 @@ def randomizer(filename):
         from core.KeyManager import keyEncryptor
         from core.EssentialsCore import output_files_folder
 
-        file_size = getsize(filename)
+        file_size = filename.stat().st_size
         foldername, keyData = fileSplitter(filename, file_size)
         zipFileMaker(foldername)
         key = getInput(inpstring="\nEnter KeyFile name : ", datatype=str)
-        keyEncryptor(keyData, keyFile=str(output_files_folder)+r"/"+key)
+        keyEncryptor(keyData, keyFile=output_files_folder.joinpath(key))
     except:
         print_exc()
 

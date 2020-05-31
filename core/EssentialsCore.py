@@ -71,7 +71,7 @@ def cleanit():
 
         for f in files:
             print("Cleaing {}".format(f))
-            remove(output_files_folder + f)
+            remove(output_files_folder.joinpath(f))
 
         print("\nCleaned.")
 
@@ -104,17 +104,16 @@ def getInput(inpstring='', datatype=None, options=[]):
         return inp
 
     if datatype == 'file':
-        from os.path import isfile
         print(inpstring, end='')
         inp = input()
-        inpF = str(output_files_folder)+r"/"+inp
-        isFile = isfile(inpF)
+        inpF = output_files_folder.joinpath(inp)
+        isFile = inpF.is_file()
         while(not isFile):
             print(isFile)
             print(inpstring, end='')
             inp = input()
-            inpF = output_files_folder+inp
-            isFile = isfile(inpF)
+            inpF = output_files_folder.joinpath(inp)
+            isFile = inpF.is_file()
 
         return inpF
 

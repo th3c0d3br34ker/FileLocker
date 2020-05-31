@@ -1,5 +1,6 @@
 from tqdm import tqdm
 from os import chdir
+from pathlib import Path
 from traceback import print_exc
 from core.EssentialsCore import locked_folder_path, testfiles_folder_path
 
@@ -14,18 +15,18 @@ def fileSplitter(filename, size):
     try:
         key = []
         logF = ""
-        foldername = filename+"_partfiles"
+        foldername = Path(str(filename)+"_partfiles")
         chunk_size_list = randomSizeGenerate(size)
         random_count_list = randomGenerate(len(chunk_size_list)+1)
         print("\n{} will be splitted into {} parts.".format(
             filename, len(chunk_size_list)))
 
         # Strart Splitting the file.
-        with open(filename, 'rb') as main_file:
+        with open(str(filename), 'rb') as main_file:
             logF = random_count_list.pop()
 
             # Make the directory
-            mkdir(foldername)
+            foldername.mkdir()
             chdir(foldername)
 
             # Create the log file.
@@ -55,8 +56,8 @@ def fileSplitter(filename, size):
                 pbar.close()
 
         # Create the Key File:
-        _filename = filename.split(".")[0]
-        _ext = filename.split(".")[1]
+        _filename = filename.stem
+        _ext = filename.suffix
         key = [_filename, _ext, logF, getHash(logF)]
 
         print("\nFile Splitted to", foldername)
@@ -71,15 +72,14 @@ def fileSplitter(filename, size):
 # It zips files in random order, into a .locked file.
 def zipFileMaker(folder):
     # Import relevant modules.
-    from os import rmdir, listdir, remove
-    from os.path import basename
+    from os import listdir, remove
     try:
         # Import relevant Modules.
         from zipfile import ZipFile, ZIP_STORED
 
-        zipFileName = folder[:folder.index(".")] + ".locked"
-        zipFileName = str(locked_folder_path)+r"/"+zipFileName
-        with ZipFile(zipFileName, 'w', ZIP_STORED) as zipF:
+        zipFileName = folder.stem+".locked"
+        zipFileName = locked_folder_path.joinpath("zipFileName")
+        with ZipFile(str(zipFileName), 'w', ZIP_STORED) as zipF:
             print("Lock file created...\n")
             #print("\nZipFile created...\n")
             chdir(folder)
@@ -101,10 +101,10 @@ def zipFileMaker(folder):
             chdir(testfiles_folder_path)
 
         # Delete the empty Folder.
-        rmdir(folder)
-        print("\nFolder {} Deleted.".format(folder))
+        folder.rmdir()
+        print("\nFolder {} Deleted.".format(str(folder)))
 
-        print("\nFiles Locked into {} file.".format(basename(zipFileName)))
+        print("\nFiles Locked into {} file.".format(str(zipFileName)))
     except Exception:
         print("\nFailed!")
         print_exc()
