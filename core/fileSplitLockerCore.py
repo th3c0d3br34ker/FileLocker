@@ -78,10 +78,9 @@ def zipFileMaker(folder):
         from zipfile import ZipFile, ZIP_STORED
 
         zipFileName = folder.stem+".locked"
-        zipFileName = locked_folder_path.joinpath("zipFileName")
+        zipFileName = locked_folder_path.joinpath(zipFileName)
         with ZipFile(str(zipFileName), 'w', ZIP_STORED) as zipF:
             print("Lock file created...\n")
-            #print("\nZipFile created...\n")
             chdir(folder)
             files = listdir()
 
@@ -102,9 +101,9 @@ def zipFileMaker(folder):
 
         # Delete the empty Folder.
         folder.rmdir()
-        print("\nFolder {} Deleted.".format(str(folder)))
+        print("\nFolder {} Deleted.".format(folder))
 
-        print("\nFiles Locked into {} file.".format(str(zipFileName)))
+        print("\nFiles Locked into {} file.".format(zipFileName))
     except Exception:
         print("\nFailed!")
         print_exc()

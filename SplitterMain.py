@@ -58,13 +58,13 @@ def derandomize():
         #print("Only works with TestFiles Directory")
         chdir(locked_folder_path)
         print("Currently in : {}\n".format(locked_folder_path))
-        folderlist = [x for x in listdir(locked_folder_path)]
+        folderlist = [x for x in locked_folder_path.iterdir()]
         n = len(folderlist)
         option = [x for x in range(1, n+1)]
         print("List of Folders :")
 
         for i in range(n):
-            print("{0}. {1} ".format(i+1, folderlist[i]))
+            print("{0}. {1} ".format(i+1, folderlist[i].name))
         # Getting the folder from the user.
         foldername = folderlist[getInput(
             inpstring="\nEnter folder number : ", datatype=int, options=option)-1]

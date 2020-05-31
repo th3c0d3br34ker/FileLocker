@@ -2,6 +2,8 @@ __pycache__
 
 # Test Files
 TestFiles
+Locked
+Output
 
 # API for dropbox
 dropbox-config.json

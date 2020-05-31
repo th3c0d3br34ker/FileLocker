@@ -39,8 +39,8 @@ def derandomizer(foldername):
         if matchKey(keyData[3], keyData[2], foldername):
             print("\n Key Matched!")
             foldername = unZipper(foldername)
-            logF = str(output_files_folder)+foldername+r'/'+keyData[1]
-            fileJoiner(foldername, log=logF, ext=keyData[2])
+            logF = foldername.joinpath(keyData[2])
+            fileJoiner(foldername, log=logF, fname=keyData[0], ext=keyData[1])
 
             # Delete Key
             print("\n Key Deleted.")

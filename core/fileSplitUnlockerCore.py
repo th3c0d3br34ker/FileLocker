@@ -1,5 +1,5 @@
 from os import chdir, remove
-from os.path import basename
+from pathlib import Path
 from traceback import print_exc
 from core.EssentialsCore import output_files_folder, locked_folder_path, default_dir
 from tqdm import tqdm
@@ -11,18 +11,18 @@ def unZipper(filename):
     from zipfile import ZipFile
     from os import mkdir
 
-    foldername = filename.split('.')[0] + "_partfiles"
-    print("\n {} will be unlocked to {}\n".format(filename, foldername))
+    foldername = Path(filename.name + "_partfiles")
+    print("\n {} will be unlocked to {}\n".format(filename.name, foldername))
 
-    filename = str(locked_folder_path)+ r"/"+filename
+    filename = locked_folder_path.joinpath(filename.name)
 
     try:
         # Create the folder.
         chdir(output_files_folder)
-        mkdir(foldername)
-        foldername = str(output_files_folder)+R"/"+foldername
+        foldername.mkdir()
+        foldername = output_files_folder.joinpath(foldername.name)
 
-        with ZipFile(filename) as zipF:
+        with ZipFile(str(filename)) as zipF:
             file_list = zipF.namelist()
             pbar = tqdm(total=len(file_list),
                         bar_format='{l_bar}{bar:80}{postfix[0]}', postfix=['|'])
@@ -38,7 +38,7 @@ def unZipper(filename):
         # Delete the file.
         chdir(default_dir)
         remove(filename)
-        return basename(foldername)
+        return foldername
 
     except Exception:
         print("\nFailed!")
@@ -47,17 +47,16 @@ def unZipper(filename):
 
 # It joins the files in correct order
 # from the log file
-def fileJoiner(folder, log, ext):
+def fileJoiner(folder, log, fname, ext):
     # Import relevant modules.
     from os import rmdir, listdir
     try:
-        chdir(str(output_files_folder)+r"/"+folder)
-        filename = str(output_files_folder) + \
-            folder.replace("_partfiles", '') + '.' + ext
-        with open(log, 'r') as logfile:
-            print("\n Making file {}...".format(basename(filename)))
+        chdir(folder)
+        filename = Path(output_files_folder / (fname+ext))
+        with open(str(log), 'r') as logfile:
+            print("\n Making file {}...".format(filename.name))
             # Create and start writing
-            with open(filename, 'wb') as main_file:
+            with open(str(filename), 'wb') as main_file:
                 pbar = tqdm(
                     total=len(listdir()), bar_format='{l_bar}{bar:80}{postfix[0]}', postfix=['|'])
                 for f in logfile:
@@ -75,7 +74,7 @@ def fileJoiner(folder, log, ext):
         chdir(default_dir)
 
         # Delete Empty Folder
-        rmdir(str(output_files_folder)+folder)
+        folder.rmdir()
     except Exception:
         print("\nFailed!")
         print_exc()
