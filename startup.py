@@ -14,8 +14,8 @@ def downloadTestFiles():
     testfiles_path = Path("./TestFiles")
     download(link, str(testfiles_path / "TestFiles.zip"))
     print("\nExtracting...\n")
-    with ZipFile(str(testfiles_path / "TestFiles.zip"), "r") as zip:
-        zip.extractall(path=testfiles_path)
+    with ZipFile(str(testfiles_path / "TestFiles.zip"), "r") as zipf:
+        zipf.extractall(path=testfiles_path)
     (testfiles_path / "TestFiles.zip").unlink()
     print("Done!\n")
 
