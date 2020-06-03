@@ -10,7 +10,6 @@ from core.EssentialsCore import locked_folder_path, testfiles_folder_path
 # returns the foldername
 def fileSplitter(filename, size):
     # Import relevant modules.
-    from os import mkdir
     from core.EssentialsCore import getHash, randomGenerate, randomSizeGenerate
     try:
         key = []

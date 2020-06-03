@@ -1,7 +1,6 @@
-from os import chdir, listdir
-from pathlib import Path
+from os import chdir
 from traceback import print_exc
-from core.EssentialsCore import cleanit, getInput
+from core.EssentialsCore import getInput
 from core.EssentialsCore import default_dir, locked_folder_path, testfiles_folder_path, output_files_folder
 
 
