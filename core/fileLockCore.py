@@ -1,5 +1,4 @@
-from os import getcwd, chdir, remove
-from os.path import getsize, exists
+from os import remove
 from traceback import print_exc
 from core.EssentialsCore import getInput
 
@@ -19,7 +18,7 @@ def randomizer(filename):
         zipFileMaker(foldername)
         key = getInput(inpstring="\nEnter KeyFile name : ", datatype=str)
         keyEncryptor(keyData, keyFile=output_files_folder.joinpath(key))
-    except:
+    except Exception:
         print_exc()
 
 # It splits a file there itself.
@@ -31,7 +30,6 @@ def derandomizer(foldername):
         # Import Specific Modules.
         from core.fileSplitUnlockerCore import unZipper, fileJoiner, matchKey
         from core.KeyManager import keyDecryptor
-        from core.EssentialsCore import output_files_folder
 
         # Get Key file.
         key = getInput(inpstring="\nEnter KeyFile name : ", datatype='file')
@@ -49,5 +47,5 @@ def derandomizer(foldername):
             print("\n Key did not Match!")
     except FileNotFoundError:
         print("\n Unable to read KEY.")
-    except:
+    except Exception:
         print_exc()

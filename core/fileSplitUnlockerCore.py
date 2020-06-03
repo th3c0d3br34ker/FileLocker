@@ -9,7 +9,6 @@ from tqdm import tqdm
 def unZipper(filename):
     # Import relevant modules.
     from zipfile import ZipFile
-    from os import mkdir
 
     foldername = Path(filename.name + "_partfiles")
     print("\n {} will be unlocked to {}\n".format(filename.name, foldername))
@@ -49,7 +48,7 @@ def unZipper(filename):
 # from the log file
 def fileJoiner(folder, log, fname, ext):
     # Import relevant modules.
-    from os import rmdir, listdir
+    from os import listdir
     try:
         chdir(folder)
         filename = Path(output_files_folder / (fname+ext))
@@ -95,5 +94,5 @@ def matchKey(keyHash, keyF, lockedF):
             return True
         else:
             return False
-    except:
+    except Exception:
         print_exc()

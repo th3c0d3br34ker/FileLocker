@@ -1,10 +1,9 @@
 from traceback import print_exc
-from os import getcwd
 from pathlib import Path
 
 
 default_dir = Path.cwd()
-locked_folder_path =(default_dir / "Locked")
+locked_folder_path = (default_dir / "Locked")
 testfiles_folder_path = (default_dir / "TestFiles")
 output_files_folder = (default_dir / "Output")
 
@@ -79,7 +78,8 @@ def cleanit():
         print_exc()
 
 
-def getInput(inpstring='', datatype=None, options=[]):
+def getInput(inpstring, datatype=None, options=[]):
+    inpstring = ""
     if datatype == int:
         options = list(map(str, options))
         print(inpstring, end='')
