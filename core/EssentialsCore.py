@@ -78,8 +78,7 @@ def cleanit():
         print_exc()
 
 
-def getInput(inpstring, datatype=None, options=[]):
-    inpstring = ""
+def getInput(inpstring="", datatype=None, options=[]):
     if datatype == int:
         options = list(map(str, options))
         print(inpstring, end='')
