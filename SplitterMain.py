@@ -35,7 +35,7 @@ def randomize():
         n = len(filelist)
         print("List of Files :")
         for i in range(n):
-            print("{0}. {1} ".format(i+1, str(filelist[i])))
+            print("{0}. {1} ".format(i+1, str(filelist[i].name)))
 
         # Getting the file from the user.
         filename = filelist[getInput(inpstring="\nEnter file number : ", datatype=int, options=[
