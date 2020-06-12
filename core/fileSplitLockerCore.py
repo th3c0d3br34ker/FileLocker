@@ -69,7 +69,7 @@ def fileSplitter(filename, size):
 
 
 # It zips files in random order, into a .locked file.
-def zipFileMaker(folder):
+def zipFileMaker(folder) -> None:
     # Import relevant modules.
     from os import listdir, remove
     try:
@@ -102,7 +102,7 @@ def zipFileMaker(folder):
         folder.rmdir()
         print("\nFolder {} Deleted.".format(folder))
 
-        print("\nFiles Locked into {} file.".format(zipFileName))
+        print("\nFiles Locked into {} file.".format(zipFileName.name))
     except Exception:
         print("\nFailed!")
         print_exc()
