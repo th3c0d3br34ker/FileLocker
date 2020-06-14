@@ -20,3 +20,4 @@ If the key is lost then it becomes immpossible to recover the file.
 
 1.  Add password feature.
 2.  Make log more comprehensive.
+3.  Make Locking and Unlocking functions into classes.
