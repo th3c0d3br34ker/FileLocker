@@ -1,6 +1,5 @@
 # FileLocker
 
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/b61e794ca5244153abe657af497f9473)](https://www.codacy.com/manual/th3c0d3br34ker/FileLocker?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=th3c0d3br34ker/FileLocker&amp;utm_campaign=Badge_Grade)
 
 This python script is a file locker.
 It locks the file with a Key which is again encrypted by a password using AES Encryption.
