@@ -8,7 +8,7 @@ pyasn1-modules==0.2.8
 pycryptodome==3.9.7
 pytz==2020.1
 requests==2.26.0
-rsa==4.0
+rsa==4.7
 six==1.16.0
 tqdm==4.62.3
 uritemplate==3.0.1
