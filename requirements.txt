@@ -1,8 +1,16 @@
 cachetools==4.1.0
+certifi==2021.5.30
+charset-normalizer==2.0.6
 dropbox==10.2.0
+idna==3.2
+pyasn1==0.4.8
 pyasn1-modules==0.2.8
 pycryptodome==3.9.7
 pytz==2020.1
-rsa==4.7
+requests==2.26.0
+rsa==4.0
+six==1.16.0
+tqdm==4.62.3
 uritemplate==3.0.1
+urllib3==1.26.7
 wget==3.2
