@@ -3,6 +3,6 @@ dropbox==10.2.0
 pyasn1-modules==0.2.8
 pycryptodome==3.9.7
 pytz==2020.1
-rsa==4.0
+rsa==4.7
 uritemplate==3.0.1
 wget==3.2
