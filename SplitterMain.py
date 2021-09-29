@@ -4,7 +4,7 @@ from core.EssentialsCore import getInput
 from core.EssentialsCore import default_dir, locked_folder_path, testfiles_folder_path, output_files_folder
 
 
-def start():
+def start() -> None:
     print("\n **************************************** WELCOME **************************************** \n")
     print(" Press 1 to Hide. \n Press 2 to Recover. \n Press 3 to Exit.")
     option = getInput(inpstring="\n Enter Choice : ",
@@ -23,7 +23,7 @@ def start():
         exit()
 
 
-def randomize():
+def randomize() -> None:
     try:
         # Import relevant Modules.
         from core.fileLockCore import randomizer
@@ -48,7 +48,7 @@ def randomize():
         print_exc()
 
 
-def derandomize():
+def derandomize() -> None:
     try:
         # Import relevant Modules.
         from core.fileLockCore import derandomizer

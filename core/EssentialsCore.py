@@ -1,6 +1,6 @@
 from traceback import print_exc
 from pathlib import Path
-
+from hashlib import sha256
 
 default_dir = Path.cwd()
 locked_folder_path = (default_dir / "Locked")
@@ -8,12 +8,12 @@ testfiles_folder_path = (default_dir / "TestFiles")
 output_files_folder = (default_dir / "Output")
 
 
-def digitBlancer(n, size=6):
+def digitBlancer(n, size=6) -> str:
     s = '0' * (size-len(str(n)))
     return s+str(n)
 
 
-def randomGenerate(n):
+def randomGenerate(n) -> list:
     try:
         from random import sample
 
@@ -26,7 +26,7 @@ def randomGenerate(n):
         print_exc()
 
 
-def randomSizeGenerate(size):
+def randomSizeGenerate(size) -> list:
     try:
         from random import randint
 
@@ -121,9 +121,7 @@ def getInput(inpstring="", datatype=None, options=[]):
         return None
 
 
-def getHash(logF):
-    # Import relevant modules.
-    from hashlib import sha256
+def getHash(logF) -> sha256:
     data = "".encode()
     with open(logF, 'rb') as file:
         data = file.read()

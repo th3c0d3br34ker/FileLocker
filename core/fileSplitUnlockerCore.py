@@ -6,7 +6,7 @@ from tqdm import tqdm
 
 
 # It just Unzips the files in '_partfiles' directory.
-def unZipper(filename):
+def unZipper(filename) -> Path:
     # Import relevant modules.
     from zipfile import ZipFile
 
@@ -46,7 +46,7 @@ def unZipper(filename):
 
 # It joins the files in correct order
 # from the log file
-def fileJoiner(folder, log, fname, ext):
+def fileJoiner(folder, log, fname, ext) -> None:
     # Import relevant modules.
     from os import listdir
     try:
@@ -82,7 +82,7 @@ def fileJoiner(folder, log, fname, ext):
 # keyHash: Hash from the key.
 # keyF: File to check with keyHash
 # lockedF: '.locked' file which contains the keyF file.
-def matchKey(keyHash, keyF, lockedF):
+def matchKey(keyHash, keyF, lockedF) -> bool:
     from zipfile import ZipFile
     from hashlib import sha256
     try:

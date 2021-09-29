@@ -10,7 +10,7 @@ class AESCipher:
     def __init__(self, key):
         self.key = sha256(key.encode('utf-8')).digest()
 
-    def encrypt(self, data):
+    def encrypt(self, data) -> b64encode:
         iv = urandom(AES.block_size)
         self.cipher = AES.new(self.key, AES.MODE_CBC, iv)
         return b64encode(iv + self.cipher.encrypt(pad(data.encode('utf-8'), AES.block_size)))
@@ -21,7 +21,7 @@ class AESCipher:
         return unpad(self.cipher.decrypt(raw[AES.block_size:]), AES.block_size)
 
 
-def keyEncryptor(data, pwd='', keyFile='key'):
+def keyEncryptor(data, pwd='', keyFile='key') -> None:
     # Generate Key.
     print("\nGenerating Key... ", end='')
     encrpyted_data = AESCipher(pwd).encrypt(data).decode('utf-8')

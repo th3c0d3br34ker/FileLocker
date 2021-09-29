@@ -6,7 +6,7 @@ from core.EssentialsCore import getInput
 # Then joins the file just in order
 
 
-def randomizer(filename):
+def randomizer(filename) -> None:
     try:
         # Import Specific Modules.
         from core.fileSplitLockerCore import zipFileMaker, fileSplitter
@@ -25,7 +25,7 @@ def randomizer(filename):
 # Then it joins the file in correct file from the log file.
 
 
-def derandomizer(foldername):
+def derandomizer(foldername) -> None:
     try:
         # Import Specific Modules.
         from core.fileSplitUnlockerCore import unZipper, fileJoiner, matchKey
