@@ -7,3 +7,6 @@ Output
 
 # API for dropbox
 dropbox-config.json
+
+# Codespaces
+.venv
