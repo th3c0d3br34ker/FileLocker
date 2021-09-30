@@ -7,7 +7,7 @@ from pyfiglet import figlet_format
 from pathlib import Path
 from zipfile import ZipFile
 
-from click.decorators import argument, command, group
+from click.decorators import argument, command, group, option
 
 from os import chdir
 from traceback import print_exc
@@ -45,7 +45,7 @@ LOCKED_FOLDER = "Locked"
 OUTPUT_FOLDER = "Output"
 
 
-def log(string, color, font="slant", figlet=False):
+def log(string, color, font="6x9", figlet=False):
     if colored:
         if not figlet:
             six.print_(colored(string, color))
@@ -260,11 +260,16 @@ def add_to_dropbox():
     dropbox()
 
 
+# Add version
+click.version_option(version="v2.0.0")
+
+# Add the commads
 cli.add_command(setup_test_files)
 cli.add_command(remove_test_files)
 cli.add_command(add_to_dropbox)
 cli.add_command(start)
 cli.add_command(check)
+
 
 if __name__ == "__main__":
     """
