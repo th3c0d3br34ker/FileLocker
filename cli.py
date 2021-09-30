@@ -66,7 +66,6 @@ def start() -> None:
     Start the tool.
     Make sure you run the check command and setup the test files.
     """
-
     ready = (
         locked_folder_path.exists()
         and testfiles_folder_path.exists()
@@ -146,14 +145,16 @@ def derandomize() -> None:
         print("Currently in : {}\n".format(locked_folder_path))
         folderlist = [x for x in locked_folder_path.iterdir()]
         n = len(folderlist)
-        options= [x for x in range(1, n + 1)]
+        options = [x for x in range(1, n + 1)]
         print("List of Folders :")
 
         for i in range(n):
             print("{0}. {1} ".format(i + 1, folderlist[i].name))
         # Getting the folder from the user.
         foldername = folderlist[
-            getInput(inpstring="\nEnter folder number : ", datatype=int, options=options)
+            getInput(
+                inpstring="\nEnter folder number : ", datatype=int, options=options
+            )
             - 1
         ]
 
@@ -167,7 +168,6 @@ def derandomize() -> None:
 @command()
 def check():
     """Check for the required folders."""
-
     log(
         "Files Directory : {} ...{}".format(
             testfiles_folder_path, testfiles_folder_path.exists()
@@ -191,7 +191,6 @@ def check():
 @command()
 def setup_test_files():
     """Download the test files and setup up the testing folder structure."""
-
     log("Setting up Folder Structure...", "green")
     try:
         (CURRENT_PATH / TEST_FOLDER).mkdir(exist_ok=True)
@@ -229,7 +228,6 @@ def setup_test_files():
 @command()
 def remove_test_files():
     """Cleanup the testing files and directory."""
-
     try:
         log("Warning all progress will be lost!", "yellow")
         confirm = click.confirm("Do you want to continue?", abort=True)
