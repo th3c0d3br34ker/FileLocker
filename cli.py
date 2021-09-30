@@ -11,7 +11,7 @@ from click.decorators import command, group
 
 from os import chdir
 from traceback import print_exc
-from core.dropboxUpdown import main as dropbox
+from core.DropboxUpdown import main as dropbox
 from core.EssentialsCore import getInput
 from core.EssentialsCore import (
     default_dir,
