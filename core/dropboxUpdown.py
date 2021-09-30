@@ -1,4 +1,5 @@
-"""Upload the contents of the TestFiles folder to Dropbox.
+"""
+Upload the contents of the TestFiles folder to Dropbox.
 
 This is an example app for API v2.
 """
@@ -44,7 +45,8 @@ parser.add_argument(
 
 
 def main():
-    """Main program.
+    """
+    Main program.
 
     Parse command line, then iterate over files and directories under
     rootdir and upload all files.  Skips some temporary files and
@@ -136,7 +138,8 @@ def main():
 
 
 def list_folder(dbx, folder, subfolder):
-    """List a folder.
+    """
+    List a folder.
 
     Return a dict mapping unicode filenames to
     FileMetadata|FolderMetadata entries.
@@ -159,7 +162,8 @@ def list_folder(dbx, folder, subfolder):
 
 
 def download(dbx, folder, subfolder, name):
-    """Download a file.
+    """
+    Download a file.
 
     Return the bytes of the file, or None if it doesn't exist.
     """
@@ -178,7 +182,8 @@ def download(dbx, folder, subfolder, name):
 
 
 def upload(dbx, fullname, folder, subfolder, name, overwrite=False):
-    """Upload a file.
+    """
+    Upload a file.
 
     Return the request response, or None in case of error.
     """
@@ -208,7 +213,8 @@ def upload(dbx, fullname, folder, subfolder, name, overwrite=False):
 
 
 def yesno(message, default, args):
-    """Handy helper function to ask a yes/no question.
+    """
+    Handy helper function to ask a yes/no question.
 
     Command line arguments --yes or --no force the answer;
     --default to force the default answer.

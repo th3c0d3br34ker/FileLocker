@@ -7,7 +7,7 @@ from pyfiglet import figlet_format
 from pathlib import Path
 from zipfile import ZipFile
 
-from click.decorators import argument, command, group, option
+from click.decorators import command, group
 
 from os import chdir
 from traceback import print_exc
@@ -64,7 +64,6 @@ def cli():
 def start() -> None:
     """
     Start the tool.
-
     Make sure you run the check command and setup the test files.
     """
 
@@ -147,14 +146,14 @@ def derandomize() -> None:
         print("Currently in : {}\n".format(locked_folder_path))
         folderlist = [x for x in locked_folder_path.iterdir()]
         n = len(folderlist)
-        option = [x for x in range(1, n + 1)]
+        options= [x for x in range(1, n + 1)]
         print("List of Folders :")
 
         for i in range(n):
             print("{0}. {1} ".format(i + 1, folderlist[i].name))
         # Getting the folder from the user.
         foldername = folderlist[
-            getInput(inpstring="\nEnter folder number : ", datatype=int, options=option)
+            getInput(inpstring="\nEnter folder number : ", datatype=int, options=options)
             - 1
         ]
 
@@ -167,9 +166,7 @@ def derandomize() -> None:
 
 @command()
 def check():
-    """
-    Check for the required folders.
-    """
+    """Check for the required folders."""
 
     log(
         "Files Directory : {} ...{}".format(
@@ -193,9 +190,7 @@ def check():
 
 @command()
 def setup_test_files():
-    """
-    Download the test files and setup up the testing folder structure.
-    """
+    """Download the test files and setup up the testing folder structure."""
 
     log("Setting up Folder Structure...", "green")
     try:
@@ -233,9 +228,7 @@ def setup_test_files():
 
 @command()
 def remove_test_files():
-    """
-    Cleanup the testing files and directory.
-    """
+    """Cleanup the testing files and directory."""
 
     try:
         log("Warning all progress will be lost!", "yellow")
@@ -254,9 +247,7 @@ def remove_test_files():
 
 @command()
 def add_to_dropbox():
-    """
-    Add the files in TestFiles folder to dropbox.
-    """
+    """Add the files in TestFiles folder to dropbox."""
     dropbox()
 
 
@@ -272,9 +263,7 @@ cli.add_command(check)
 
 
 if __name__ == "__main__":
-    """
-    CLI for setting up testing files.
-    """
+    """CLI for setting up testing files."""
     log("Utils CLI", color="blue", figlet=True)
     log("Welcome to Utils CLI.\n", color="green")
     cli()
