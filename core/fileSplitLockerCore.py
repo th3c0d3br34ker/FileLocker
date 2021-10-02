@@ -1,16 +1,20 @@
+from typing import Union
 from tqdm import tqdm
 from os import chdir
-from pathlib import Path
+from pathlib import Path, PosixPath
 from traceback import print_exc
-from .EssentialsCore import testfiles_folder_path, locked_folder_path
+
+from core.timerDecorator import Timer
+from core.EssentialsCore import log, testfiles_folder_path, locked_folder_path
 
 
 # It creates a new directory and splits a file there
 # genertes a logfile
 # returns the foldername
-def fileSplitter(filename, size):
+@Timer(name="Splitting process...", logger=log)
+def fileSplitter(filename: PosixPath, size: int) -> Union[Path, str]:
     # Import relevant modules.
-    from .EssentialsCore import getHash, randomGenerate, randomSizeGenerate
+    from core.EssentialsCore import getHash, randomGenerate, randomSizeGenerate
 
     try:
         key = []
@@ -19,8 +23,8 @@ def fileSplitter(filename, size):
         chunk_size_list = randomSizeGenerate(size)
         random_count_list = randomGenerate(len(chunk_size_list) + 1)
         print(
-            "\n{} will be splitted into {} parts.".format(
-                filename, len(chunk_size_list)
+            "\n{} of size {} bytes will be splitted into {} parts.".format(
+                filename.name, filename.stat().st_size, len(chunk_size_list)
             )
         )
 

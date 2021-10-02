@@ -143,7 +143,7 @@ def getHash(logF) -> sha256:
     return sha256(data).hexdigest()
 
 
-def log(string, color, font="6x9", figlet=False) -> None:
+def log(string, color="blue", font="6x9", figlet=False) -> None:
     if colored:
         if not figlet:
             six.print_(colored(string, color))
@@ -151,3 +151,12 @@ def log(string, color, font="6x9", figlet=False) -> None:
             six.print_(colored(figlet_format(string, font=font), color))
     else:
         six.print_(string)
+
+
+def getFileList(path: Path) -> list:
+    files = []
+    for i in path.glob("**/*"):
+        if Path.is_file(i):
+            files.append(i)
+
+    return files

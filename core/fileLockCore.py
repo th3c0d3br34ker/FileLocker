@@ -1,4 +1,5 @@
 from os import remove
+from pathlib import PosixPath
 from traceback import print_exc
 from .EssentialsCore import getInput
 
@@ -6,17 +7,18 @@ from .EssentialsCore import getInput
 # Then joins the file just in order
 
 
-def randomizer(filename) -> None:
+def randomizer(filename: PosixPath) -> None:
     try:
         # Import Specific Modules.
-        from .fileSplitLockerCore import zipFileMaker, fileSplitter
-        from .KeyManager import keyEncryptor
-        from .EssentialsCore import output_files_folder
+        from core.fileSplitLockerCore import zipFileMaker, fileSplitter
+        from core.KeyManager import keyEncryptor
+        from core.EssentialsCore import output_files_folder
 
         file_size = filename.stat().st_size
-        foldername, keyData = fileSplitter(filename, file_size)
+        foldername, keyData = fileSplitter(filename=filename, size=file_size)
         zipFileMaker(foldername)
-        key = getInput(inpstring="\nEnter KeyFile name : ", datatype=str)
+        # key = getInput(inpstring="\nEnter KeyFile name : ", datatype=str)
+        key = filename.name + "__key"
         keyEncryptor(keyData, keyFile=output_files_folder.joinpath(key))
     except Exception:
         print_exc()

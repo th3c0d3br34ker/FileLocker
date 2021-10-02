@@ -1,9 +1,7 @@
 import click
-import six
 import shutil
 import requests
 
-from pyfiglet import figlet_format
 from pathlib import Path
 from zipfile import ZipFile
 
@@ -12,7 +10,7 @@ from click.decorators import command, group
 from os import chdir
 from traceback import print_exc
 from core.DropboxUpdown import main as dropbox
-from core.EssentialsCore import getInput, log
+from core.EssentialsCore import getFileList, getInput, log
 from core.EssentialsCore import (
     default_dir,
     locked_folder_path,
@@ -88,7 +86,7 @@ def randomize() -> None:
         print("\nLooking for files in local directory...\n")
         chdir(testfiles_folder_path)
         print("Currently in : {}\n".format(testfiles_folder_path))
-        filelist = [x for x in testfiles_folder_path.iterdir() if x.is_file()]
+        filelist = getFileList(testfiles_folder_path)
         n = len(filelist)
         print("List of Files :")
         for i in range(n):
@@ -215,6 +213,7 @@ def remove_test_files():
             shutil.rmtree(CURRENT_PATH / LOCKED_FOLDER, ignore_errors=True)
             log("Removing... " + OUTPUT_FOLDER, "green")
             shutil.rmtree(CURRENT_PATH / OUTPUT_FOLDER, ignore_errors=True)
+
     except Exception:
         log("Failed to remove Files!\nAborting...", "red")
         exit(1)

@@ -2,7 +2,7 @@ from contextlib import ContextDecorator
 from dataclasses import dataclass, field
 from typing import Any, Callable, ClassVar, Dict, Optional
 
-import time
+from time import perf_counter_ns
 
 
 class TimerError(Exception):
@@ -43,7 +43,7 @@ class Timer(ContextDecorator):
 
     timers: ClassVar[Dict[str, float]] = dict()
     name: Optional[str] = None
-    text: str = "Elapsed time: {:0.4f} seconds"
+    text: str = "Elapsed time: {:0} ns"
     logger: Optional[Callable[[str], None]] = print
     _start_time: Optional[float] = field(default=None, init=False, repr=False)
 
@@ -57,7 +57,7 @@ class Timer(ContextDecorator):
         if self._start_time is not None:
             raise TimerError("Timer is running. Use .stop() to stop it.")
 
-        self._start_time = time.perf_counter()
+        self._start_time = perf_counter_ns()
 
     def stop(self) -> float:
         """Stop the timer, and report the elapsed time."""
@@ -65,7 +65,7 @@ class Timer(ContextDecorator):
             raise TimerError("Timer is not running. Use .start() to start it.")
 
         # Calculate elapsed time
-        elapsed_time = time.perf_counter() - self._start_time
+        elapsed_time = perf_counter_ns() - self._start_time
         self._start_time = None
 
         # Report elapsed time
