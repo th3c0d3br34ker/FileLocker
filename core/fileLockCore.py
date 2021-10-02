@@ -1,6 +1,6 @@
 from os import remove
 from traceback import print_exc
-from core.EssentialsCore import getInput
+from .EssentialsCore import getInput
 
 # It splits a fils, stores the correct order in a log a file.
 # Then joins the file just in order
@@ -9,9 +9,9 @@ from core.EssentialsCore import getInput
 def randomizer(filename) -> None:
     try:
         # Import Specific Modules.
-        from core.fileSplitLockerCore import zipFileMaker, fileSplitter
-        from core.KeyManager import keyEncryptor
-        from core.EssentialsCore import output_files_folder
+        from .fileSplitLockerCore import zipFileMaker, fileSplitter
+        from .KeyManager import keyEncryptor
+        from .EssentialsCore import output_files_folder
 
         file_size = filename.stat().st_size
         foldername, keyData = fileSplitter(filename, file_size)
@@ -21,6 +21,7 @@ def randomizer(filename) -> None:
     except Exception:
         print_exc()
 
+
 # It splits a file there itself.
 # Then it joins the file in correct file from the log file.
 
@@ -28,12 +29,12 @@ def randomizer(filename) -> None:
 def derandomizer(foldername) -> None:
     try:
         # Import Specific Modules.
-        from core.fileSplitUnlockerCore import unZipper, fileJoiner, matchKey
-        from core.KeyManager import keyDecryptor
+        from .fileSplitUnlockerCore import unZipper, fileJoiner, matchKey
+        from .KeyManager import keyDecryptor
 
         # Get Key file.
-        key = getInput(inpstring="\nEnter KeyFile name : ", datatype='file')
-        keyData = keyDecryptor(key).split('\n')
+        key = getInput(inpstring="\nEnter KeyFile name : ", datatype="file")
+        keyData = keyDecryptor(key).split("\n")
         if matchKey(keyData[3], keyData[2], foldername):
             print("\n Key Matched!")
             foldername = unZipper(foldername)

@@ -2,7 +2,7 @@ from tqdm import tqdm
 from os import chdir
 from pathlib import Path
 from traceback import print_exc
-from core.EssentialsCore import locked_folder_path, testfiles_folder_path
+from .EssentialsCore import testfiles_folder_path, locked_folder_path
 
 
 # It creates a new directory and splits a file there
@@ -10,18 +10,22 @@ from core.EssentialsCore import locked_folder_path, testfiles_folder_path
 # returns the foldername
 def fileSplitter(filename, size):
     # Import relevant modules.
-    from core.EssentialsCore import getHash, randomGenerate, randomSizeGenerate
+    from .EssentialsCore import getHash, randomGenerate, randomSizeGenerate
+
     try:
         key = []
         logF = ""
-        foldername = Path(str(filename)+"_partfiles")
+        foldername = Path(str(filename) + "_partfiles")
         chunk_size_list = randomSizeGenerate(size)
-        random_count_list = randomGenerate(len(chunk_size_list)+1)
-        print("\n{} will be splitted into {} parts.".format(
-            filename, len(chunk_size_list)))
+        random_count_list = randomGenerate(len(chunk_size_list) + 1)
+        print(
+            "\n{} will be splitted into {} parts.".format(
+                filename, len(chunk_size_list)
+            )
+        )
 
         # Strart Splitting the file.
-        with open(str(filename), 'rb') as main_file:
+        with open(str(filename), "rb") as main_file:
             logF = random_count_list.pop()
 
             # Make the directory
@@ -29,19 +33,22 @@ def fileSplitter(filename, size):
             chdir(foldername)
 
             # Create the log file.
-            with open(logF, 'w') as logfile:
+            with open(logF, "w") as logfile:
                 print("\nLog created.")
 
                 # Create the file
                 print("\nSplitting File...")
 
-                pbar = tqdm(total=len(chunk_size_list),
-                            bar_format='{l_bar}{bar:80}{postfix[0]}', postfix=['|'])
-                while(len(chunk_size_list) != 0):
+                pbar = tqdm(
+                    total=len(chunk_size_list),
+                    bar_format="{l_bar}{bar:80}{postfix[0]}",
+                    postfix=["|"],
+                )
+                while len(chunk_size_list) != 0:
                     count, chunk_size = random_count_list.pop(), chunk_size_list.pop()
 
                     # Write the part file.
-                    with open(count, 'wb') as fpart:
+                    with open(count, "wb") as fpart:
                         data = main_file.read(chunk_size)
                         fpart.write(data)
 
@@ -61,7 +68,7 @@ def fileSplitter(filename, size):
 
         print("\nFile Splitted to", foldername)
         chdir(testfiles_folder_path)
-        return foldername, '\n'.join(key)
+        return foldername, "\n".join(key)
 
     except Exception:
         print("\nFailed!")
@@ -72,20 +79,20 @@ def fileSplitter(filename, size):
 def zipFileMaker(folder) -> None:
     # Import relevant modules.
     from os import listdir, remove
+
     try:
         # Import relevant Modules.
         from zipfile import ZipFile, ZIP_STORED
 
-        zipFileName = folder.stem+".locked"
+        zipFileName = folder.stem + ".locked"
         zipFileName = locked_folder_path.joinpath(zipFileName)
-        with ZipFile(str(zipFileName), 'w', ZIP_STORED) as zipF:
+        with ZipFile(str(zipFileName), "w", ZIP_STORED) as zipF:
             print("Lock file created...\n")
             chdir(folder)
             files = listdir()
 
             # Progressbar.
-            pbar = tqdm(
-                files, bar_format='{l_bar}{bar:80}{postfix[0]}', postfix=['|'])
+            pbar = tqdm(files, bar_format="{l_bar}{bar:80}{postfix[0]}", postfix=["|"])
 
             for f in files:
                 zipF.write(f)

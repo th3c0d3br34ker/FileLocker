@@ -1,8 +1,8 @@
 from os import chdir, remove
 from pathlib import Path
 from traceback import print_exc
-from core.EssentialsCore import output_files_folder, locked_folder_path, default_dir
 from tqdm import tqdm
+from .EssentialsCore import output_files_folder, locked_folder_path, default_dir
 
 
 # It just Unzips the files in '_partfiles' directory.
@@ -23,8 +23,11 @@ def unZipper(filename) -> Path:
 
         with ZipFile(str(filename)) as zipF:
             file_list = zipF.namelist()
-            pbar = tqdm(total=len(file_list),
-                        bar_format='{l_bar}{bar:80}{postfix[0]}', postfix=['|'])
+            pbar = tqdm(
+                total=len(file_list),
+                bar_format="{l_bar}{bar:80}{postfix[0]}",
+                postfix=["|"],
+            )
             for f in file_list:
                 zipF.extract(f, foldername)
 
@@ -49,17 +52,21 @@ def unZipper(filename) -> Path:
 def fileJoiner(folder, log, fname, ext) -> None:
     # Import relevant modules.
     from os import listdir
+
     try:
         chdir(folder)
-        filename = Path(output_files_folder / (fname+ext))
-        with open(str(log), 'r') as logfile:
+        filename = Path(output_files_folder / (fname + ext))
+        with open(str(log), "r") as logfile:
             print("\n Making file {}...".format(filename.name))
             # Create and start writing
-            with open(str(filename), 'wb') as main_file:
+            with open(str(filename), "wb") as main_file:
                 pbar = tqdm(
-                    total=len(listdir()), bar_format='{l_bar}{bar:80}{postfix[0]}', postfix=['|'])
+                    total=len(listdir()),
+                    bar_format="{l_bar}{bar:80}{postfix[0]}",
+                    postfix=["|"],
+                )
                 for f in logfile:
-                    with open(f.strip(), 'rb') as fpart:
+                    with open(f.strip(), "rb") as fpart:
                         file_obj = fpart.read()
                     main_file.write(file_obj)
                     remove(f.strip())
@@ -85,6 +92,7 @@ def fileJoiner(folder, log, fname, ext) -> None:
 def matchKey(keyHash, keyF, lockedF) -> bool:
     from zipfile import ZipFile
     from hashlib import sha256
+
     try:
         keyF_data = None
         with ZipFile(lockedF) as zipF:

@@ -12,26 +12,13 @@ from click.decorators import command, group
 from os import chdir
 from traceback import print_exc
 from core.DropboxUpdown import main as dropbox
-from core.EssentialsCore import getInput
+from core.EssentialsCore import getInput, log
 from core.EssentialsCore import (
     default_dir,
     locked_folder_path,
     testfiles_folder_path,
     output_files_folder,
 )
-
-try:
-    import colorama
-
-    colorama.init()
-except ImportError:
-    colorama = None
-
-
-try:
-    from termcolor import colored
-except ImportError:
-    colored = None
 
 
 # Constants
@@ -43,16 +30,6 @@ CURRENT_PATH = Path(".").resolve()
 TEST_FOLDER = "TestFiles"
 LOCKED_FOLDER = "Locked"
 OUTPUT_FOLDER = "Output"
-
-
-def log(string, color, font="6x9", figlet=False):
-    if colored:
-        if not figlet:
-            six.print_(colored(string, color))
-        else:
-            six.print_(colored(figlet_format(string, font=font), color))
-    else:
-        six.print_(string)
 
 
 @group()
